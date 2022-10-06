@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query } from '@nestjs/common';
 
 @Controller('products')
 export class ProductsController {
@@ -23,36 +23,37 @@ export class ProductsController {
     }
 
     @Post()
-    create(@Body() payload:any) {
-        return { message: 'accion de crear', payload};
+    @HttpCode(HttpStatus.ACCEPTED)
+    create(@Body() payload: any) {
+        return { message: 'accion de crear', payload };
     }
 
     @Put(':id')
-    update(@Param('id') productId:number, @Body() payload:any){
-        return { 
-            message: 'accion de actualizar', 
+    update(@Param('id') productId: number, @Body() payload: any) {
+        return {
+            message: 'accion de actualizar',
             productId,
             payload
         };
     }
 
     @Put('')
-    updateMax(@Body() payload:any){
-        return { 
-            message: 'accion de actualizar', 
+    updateMax(@Body() payload: any) {
+        return {
+            message: 'accion de actualizar',
             payload
         };
     }
 
     @Delete(':id')
-    delecte(@Param('id') id: number){
-        return {messge:'Accion de eliminar un solo elemento',id}
+    delecte(@Param('id') id: number) {
+        return { messge: 'Accion de eliminar un solo elemento', id }
     }
 
     @Delete()
-    delecteMax(@Body() payload:any){
-        return {messge:'Accion de eliminar maxivamente',payload}
+    delecteMax(@Body() payload: any) {
+        return { messge: 'Accion de eliminar maxivamente', payload }
     }
-    
+
 
 }
