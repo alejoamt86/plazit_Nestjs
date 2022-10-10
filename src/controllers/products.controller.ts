@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put, Query, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query, Res } from '@nestjs/common';
 import { LargeNumberLike } from 'crypto';
 import { response } from 'express';
 import { ProductsService } from 'src/services/products.service';
+import { ParseIntPipe } from '../common/parse-int.pipe';
  
 @Controller('products')
 export class ProductsController {
@@ -23,8 +24,8 @@ export class ProductsController {
     }
 
     // http://localhost:3000/products/id
-    @Get(':id')
-    getOne(@Param('id',ParseIntPipe) productId: number){
+    @Get(':productId')
+    getOne(@Param('productId', ParseIntPipe) productId: number){
         // return `The product is: ${productId}`;
         return this.productService.findOne(productId);
     }
