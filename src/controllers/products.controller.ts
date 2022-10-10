@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put, Query, Res } from '@nestjs/common';
 import { LargeNumberLike } from 'crypto';
 import { response } from 'express';
 import { ProductsService } from 'src/services/products.service';
@@ -24,9 +24,9 @@ export class ProductsController {
 
     // http://localhost:3000/products/id
     @Get(':id')
-    getOne(@Param('id') productId: number){
+    getOne(@Param('id',ParseIntPipe) productId: number){
         // return `The product is: ${productId}`;
-        return this.productService.findOne(+productId);
+        return this.productService.findOne(productId);
     }
 
 
@@ -53,7 +53,7 @@ export class ProductsController {
 
     @Delete(':id')
     delecte(@Param('id') id: number) {
-        return { messge: 'Accion de eliminar un solo elemento', id }
+        return this.productService.remove(+id);
     }
 
     @Delete()
