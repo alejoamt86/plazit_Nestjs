@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query, Res } from '@nestjs/common';
 import { LargeNumberLike } from 'crypto';
 import { response } from 'express';
+import { CreateProductDto, UpdateProductDto } from 'src/products.dtos';
 import { ProductsService } from 'src/services/products.service';
 import { ParseIntPipe } from '../common/parse-int.pipe';
  
@@ -33,13 +34,13 @@ export class ProductsController {
 
     @Post()
     @HttpCode(HttpStatus.ACCEPTED)
-    create(@Body() payload: any) {
+    create(@Body() payload: CreateProductDto) {
         // return { message: 'accion de crear', payload };
         return this.productService.create(payload);
     }
 
     @Put(':id')
-    update(@Param('id') productId: number, @Body() payload: any) {
+    update(@Param('id') productId: number, @Body() payload: UpdateProductDto) {
         return this.productService.update(+productId,payload);
     }
 
